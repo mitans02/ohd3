@@ -34,7 +34,6 @@
     <script src="http://<%= IP %>:8088/ip2/js/vsido.camera.js"></script>
     <script src="js/lib/vsido.web.js"></script>
     <script src="js/lib2/oimatsu.vsido.suikawari.js"></script>
-    <!--  
     <script>
     $(function(){
         var camera=null;
@@ -47,7 +46,6 @@
         camera.viewRaw($('#camera_raw'));
     });
     </script>
-    -->
 
 <script src="js/socket.io.js"></script>
     <script>
@@ -80,7 +78,7 @@
 
         params = getParameters();
 
-        document.getElementById("sousa").innerHTML = arrows[params['no']];
+        document.getElementById("sousa").innerHTML = arrows[params['no']-1];
 
         var socket = io.connect();
         socket.on('connect', function(msg) {

@@ -56,7 +56,9 @@
     }
 
     function wareta(msg) {
-       location.href="/end";
+        setTimeout( function() {
+            location.href="/end";
+        }, 1500 );
     }
 
     var arrows = ['振り下ろす！', '▲前進▲', '▼後進▼', '◀︎左回転', '右回転▶︎'];

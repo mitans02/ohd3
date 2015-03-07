@@ -55,10 +55,10 @@
         return paramArray;
     }
 
-    function wareta(msg) {
+    wareta = function (msg) {
         setTimeout( function() {
             location.href="/end";
-        }, 1500 );
+        }, 1000 );
     }
 
     var arrows = ['振り下ろす！', '▲前進▲', '▼後進▼', '◀︎左回転', '右回転▶︎'];
@@ -86,6 +86,13 @@
             }
             $("#chat").html(chat_text);
         });
+
+        $(window).keydown(function(e){
+          if (e.keyCode == 89) {
+              wareta(null);
+          }
+          return true;
+        });1
 
         $("#sousa").bind('click', function() {
             if (params['no'] == 1) {
@@ -127,7 +134,7 @@
         }else{
             camera=new VSidoCamera();
         }
-        camera.listen(wareta);
+        //camera.listen(wareta);
         if (params['no'] == 1) {
             camera.viewMarkerDetect2($('#camera_raw'));
         } else {

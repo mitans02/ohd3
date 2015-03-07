@@ -25,20 +25,19 @@
 
 
 
-    <link rel="stylesheet" href="http://192.168.11.38:8088/ip2/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
-    <script src="http://192.168.11.38:8088/ip2/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://192.168.11.38:8088/ip2/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-    <script src="http://192.168.11.38:8088/ip2/libs/jquery/jquery.ui.touch-punch.min.js"></script>
-    <script src="http://192.168.11.38:8088/ip2/libs/common.js"></script>
+    <link rel="stylesheet" href="http://192.168.150.120:8088/ip2/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+    <script src="http://192.168.150.120:8088/ip2/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://192.168.150.120:8088/ip2/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script src="http://192.168.150.120:8088/ip2/libs/jquery/jquery.ui.touch-punch.min.js"></script>
+    <script src="http://192.168.150.120:8088/ip2/libs/common.js"></script>
 
-    <script src="js/lib/vsido.camera.js"></script>
+    <script src="http://192.168.150.120:8088/ip2/js/vsido.camera.js"></script>
     <script src="js/lib/vsido.web.js"></script>
     <script src="js/lib2/oimatsu.vsido.suikawari.js"></script>
-    <!--  
     <script>
     $(function(){
         var camera=null;
-        var qparam='192.168.11.38';
+        var qparam='192.168.150.120';
         if(qparam){
             camera=new VSidoCamera({'ip':qparam});
         }else{
@@ -47,7 +46,6 @@
         camera.viewRaw($('#camera_raw'));
     });
     </script>
-    -->
 
 <script src="js/socket.io.js"></script>
     <script>
@@ -73,14 +71,14 @@
 
     $(function() {
         var suika = new OimatsuVsidoSuika({
-	    'ip'       : '192.168.11.38'
+	    'ip'       : '192.168.150.120'
         });
 
         suika.init();
 
         params = getParameters();
 
-        document.getElementById("sousa").innerHTML = arrows[params['no']];
+        document.getElementById("sousa").innerHTML = arrows[params['no']-1];
 
         var socket = io.connect();
         socket.on('connect', function(msg) {

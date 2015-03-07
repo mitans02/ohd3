@@ -31,23 +31,11 @@
     <script src="http://192.168.150.120:8088/ip2/libs/jquery/jquery.ui.touch-punch.min.js"></script>
     <script src="http://192.168.150.120:8088/ip2/libs/common.js"></script>
 
-    <script src="http://192.168.150.120:8088/ip2/js/vsido.camera.js"></script>
+    <script src="js/lib/vsido.camera.js"></script>
     <script src="js/lib/vsido.web.js"></script>
     <script src="js/lib2/oimatsu.vsido.suikawari.js"></script>
-    <script>
-    $(function(){
-        var camera=null;
-        var qparam='192.168.150.120';
-        if(qparam){
-            camera=new VSidoCamera({'ip':qparam});
-        }else{
-            camera=new VSidoCamera();
-        }
-        camera.viewRaw($('#camera_raw'));
-    });
-    </script>
 
-<script src="js/socket.io.js"></script>
+    <script src="js/socket.io.js"></script>
     <script>
     function getParameters() {
         var url   = location.href;
@@ -65,6 +53,10 @@
         }
 
         return paramArray;
+    }
+
+    function wareta(msg) {
+       location.href="/end";
     }
 
     var arrows = ['振り下ろす！', '▲前進▲', '▼後進▼', '◀︎左回転', '右回転▶︎'];
@@ -124,6 +116,16 @@
             if (sec < 10) { sec = "0" + sec; }
             socket.emit('message', { "txt" : "ちょっと待って！", "date" : (d.getHours() + ":" + sec), "player" : params['no']});
         });
+
+        var camera=null;
+        var qparam='192.168.150.120';
+        if(qparam){
+            camera=new VSidoCamera({'ip':qparam});
+        }else{
+            camera=new VSidoCamera();
+        }
+        camera.listen(wareta);
+        camera.viewMarkerDetect($('#camera_raw'));
 
 
     });

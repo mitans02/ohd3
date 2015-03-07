@@ -39,6 +39,7 @@
                   cache: false,
                   success: function(data, textStatus){
                       $("#no").val(data['newnumber']);
+                      $("#chara"+data['newnumber']).removeAttr("style");
   
                       if (data['newnumber'] == 5) {
                           socket.emit('kickstart', {});
@@ -63,6 +64,26 @@
 <div class="container">
 	<div class="row clearfix">
 		<div class="col-md-12 column">
+
+        <img src="./img/suika_soujuseki_02.png" width="100%" alt="soujuseki">
+
+        <table>
+          <tr>
+            <th>総統</th>
+            <th>吉田くん</th>
+            <th>レオナルド博士</th>
+            <th>フィリップ</th>
+            <th>菩薩峠</th>
+          </tr>
+          <tr>
+            <td><img src="./img/suika_chara_01.png" id="chara1" style="opacity:0.5;filter:alpha(opacity=50);"></td>
+            <td><img src="./img/suika_chara_02.png" id="chara2" style="opacity:0.5;filter:alpha(opacity=50);"></td>
+            <td><img src="./img/suika_chara_03.png" id="chara3" style="opacity:0.5;filter:alpha(opacity=50);"></td>
+            <td><img src="./img/suika_chara_04.png" id="chara4" style="opacity:0.5;filter:alpha(opacity=50);"></td>
+            <td><img src="./img/suika_chara_05.png" id="chara5" style="opacity:0.5;filter:alpha(opacity=50);"></td>
+          </tr>
+        </table>
+
 
         <form name="myFORM" id="myFORM" method="GET" action="./play">
             <input type="text" value="" name="no" id="no">

@@ -31,7 +31,7 @@
     <script src="http://<%= IP %>:8088/ip2/libs/jquery/jquery.ui.touch-punch.min.js"></script>
     <script src="http://<%= IP %>:8088/ip2/libs/common.js"></script>
 
-    <script src="js/lib/vsido.camera.js"></script>
+    <script src="js/lib/vsido.camera2.js"></script>
     <script src="js/lib/vsido.web.js"></script>
     <script src="js/lib2/oimatsu.vsido.suikawari.js"></script>
 
@@ -60,6 +60,7 @@
     }
 
     var arrows = ['振り下ろす！', '▲前進▲', '▼後進▼', '◀︎左回転', '右回転▶︎'];
+    var names  = ['総統', '吉田くん', '博士', 'フィリップ', '菩薩峠'];
 
     $(function() {
         var suika = new OimatsuVsidoSuika({
@@ -79,7 +80,7 @@
         socket.on('message', function(msg) {
             var chat_text = '';
             for (i = (msg.length - 1); (i >= 0 && i > msg.length - 5); i--) {
-                chat_text = chat_text + "[" + msg[i].date + "] " + msg[i].player + "号 => " + msg[i].txt + "<br>";
+                chat_text = chat_text + "[" + msg[i].date + "] " + names[msg[i].player - 1] + "=> " + msg[i].txt + "<br>";
             }
             $("#chat").html(chat_text);
         });
@@ -125,8 +126,11 @@
             camera=new VSidoCamera();
         }
         camera.listen(wareta);
-        camera.viewMarkerDetect($('#camera_raw'));
-
+        if (params['no'] == 1) {
+            camera.viewMarkerDetect2($('#camera_raw'));
+        } else {
+            camera.viewMarkerDetect($('#camera_raw'));
+        }
 
     });
     </script>

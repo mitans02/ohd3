@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <h1>Hello, world!</h1>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <body>
+
+  <p>接続数:<span id="count"></span></p>
+  <script>
+      var socket = io.connect();
+      var $count = $('#count');
+      var $number = $('#number');
+
+      socket.on('count', function(data) {
+          $count.text(data);
+          console.log(data);
+
+          if (data > 4) {
+            document.getElementById("go").disabled =false;
+          } else {
+            document.getElementById("go").disabled =true;
+          }
+      });
+
+      function set_value(){
+        socket.emit('number', {});
+      }
+
+      socket.on('number', function(data){
+        console.log(data);
+        document.getElementById("no").value = data;
+        document.getElementById("myFORM").submit();
+      });
+  </script>
+
+  <input type="button" value="GO!" name="" id="go" onClick="set_value()" disabled>
+  <form name="myFORM" id="myFORM" method="GET" action="./play">
+    <input type="hidden" value="" name="no" id="no">
+  </form>
+
+  </body>
+</html>

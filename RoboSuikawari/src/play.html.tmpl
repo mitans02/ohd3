@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>すいか割り！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!--link rel="stylesheet/less" href="less/bootstrap.less" type="text/css" /-->
+	<!--link rel="stylesheet/less" href="less/responsive.less" type="text/css" /-->
+	<!--script src="js/less-1.3.3.min.js"></script-->
+	<!--append ‘#!watch’ to the browser URL, then refresh the page. -->
+	
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">
+  
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/scripts.js"></script>
+
+
+
+    <link rel="stylesheet" href="http://<%= IP %>:8088/ip2/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+    <script src="http://<%= IP %>:8088/ip2/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://<%= IP %>:8088/ip2/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script src="http://<%= IP %>:8088/ip2/libs/jquery/jquery.ui.touch-punch.min.js"></script>
+    <script src="http://<%= IP %>:8088/ip2/libs/common.js"></script>
+
+    <script src="http://<%= IP %>:8088/ip2/js/vsido.camera.js"></script>
+    <script src="js/lib/vsido.web.js"></script>
+    <script src="js/lib2/oimatsu.vsido.suikawari.js"></script>
+    <!--  
+    <script>
+    $(function(){
+        var camera=null;
+        var qparam='<%= IP %>';
+        if(qparam){
+            camera=new VSidoCamera({'ip':qparam});
+        }else{
+            camera=new VSidoCamera();
+        }
+        camera.viewRaw($('#camera_raw'));
+    });
+    </script>
+    -->
+
+<script src="js/socket.io.js"></script>
+    <script>
+    function getParameters() {
+        var url   = location.href;
+        params    = url.split("?");
+        paramms   = params[1].split("&");
+
+        // パラメータ用の配列を用意
+        var paramArray = [];
+
+        // 配列にパラメータを格納
+        for ( i = 0; i < paramms.length; i++ ) {
+           neet = paramms[i].split("=");
+           paramArray.push(neet[0]);
+           paramArray[neet[0]] = neet[1];
+        }
+
+        return paramArray;
+    }
+
+    var arrows = ['振り下ろす！', '▲前進▲', '▼後進▼', '◀︎左回転', '右回転▶︎'];
+
+    $(function() {
+        var suika = new OimatsuVsidoSuika({
+	    'ip'       : '<%= IP %>'
+        });
+
+        suika.init();
+
+        params = getParameters();
+
+        document.getElementById("sousa").innerHTML = arrows[params['no']];
+
+        var socket = io.connect();
+        socket.on('connect', function(msg) {
+        });
+
+        socket.on('message', function(msg) {
+            var chat_text = '';
+            for (i = (msg.length - 1); (i >= 0 && i > msg.length - 5); i--) {
+                chat_text = chat_text + "[" + msg[i].date + "] " + msg[i].player + "号 => " + msg[i].txt + "<br>";
+            }
+            $("#chat").html(chat_text);
+        });
+
+        $("#sousa").bind('click', function() {
+            if (params['no'] == 1) {
+              suika.doSuikawari();
+            } else if (params['no'] == 2) {
+              suika.moveForward();
+            } else if (params['no'] == 3) {
+              suika.moveBackward();
+            } else if (params['no'] == 4) {
+              suika.moveLeft();
+            } else if (params['no'] == 5) {
+              suika.moveRight();
+            }
+        });
+
+        $("#btn_push").bind('click', function() {
+            var d = new Date();
+            var sec = d.getSeconds();
+            if (sec < 10) { sec = "0" + sec; }
+            socket.emit('message', { "txt" : "押せ！", "date" : (d.getHours() + ":" + sec), "player" : params['no'] });
+        });
+        $("#btn_dontpush").bind('click', function() {
+            var d = new Date();
+            var sec = d.getSeconds();
+            if (sec < 10) { sec = "0" + sec; }
+            socket.emit('message', { "txt" : "押しすぎ！", "date" : (d.getHours() + ":" + sec), "player" : params['no'] });
+        });
+        $("#btn_wait").bind('click', function() {
+            var d = new Date();
+            var sec = d.getSeconds();
+            if (sec < 10) { sec = "0" + sec; }
+            socket.emit('message', { "txt" : "ちょっと待って！", "date" : (d.getHours() + ":" + sec), "player" : params['no']});
+        });
+
+
+    });
+    </script>
+
+    
+    <style>
+    h1{display:none;}
+    #camera_raw,#vsido_camera_marker{
+        border:1px solid white;
+        width:290px;
+        height:240px;
+    }
+    #camera-div{
+        width:100%;
+        height:100%;
+        text-align:center;
+        /* margin:5px auto; */
+    }
+    </style>
+</head>
+
+<body>
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+
+
+        <div id="camera-div">
+            <img src="" id="camera_raw">
+        </div>      
+
+    <button id="sousa" type="button" class="btn btn-block btn-lg btn-primary"></button>
+
+    <blockquote id="chat">
+	</blockquote>
+
+	<button type="button" class="btn btn-success" id="btn_push">押せ!</button>
+	<button type="button" class="btn btn-danger"  id="btn_dontpush">押しすぎ!</button>
+	<button type="button" class="btn btn-warning" id="btn_wait">ちょっとまって!</button>
+
+		</div>
+	</div>
+</div>
+</body>
+</html>

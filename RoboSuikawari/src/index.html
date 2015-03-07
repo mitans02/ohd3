@@ -42,7 +42,8 @@
                       $("#chara"+data['newnumber']).removeAttr("style");
                       $("#chara"+data['newnumber']).attr("style", "width:19%");
   
-                      if (data['newnumber'] == 5) {
+                      if (data['newnumber'] == 2) {
+                      //if (data['newnumber'] == 5) {
                           socket.emit('kickstart', {});
                       }
                   },
@@ -70,10 +71,10 @@
 
         <div style="width: 100%">
             <img src="./img/suika_chara_01.png" id="chara1" style="opacity:0.5;filter:alpha(opacity=50);width:19%;">
-            <img src="./img/suika_chara_02.png" id="chara2" style="opacity:0.5;filter:alpha(opacity=50);width:19%;">
             <img src="./img/suika_chara_03.png" id="chara3" style="opacity:0.5;filter:alpha(opacity=50);width:19%;">
             <img src="./img/suika_chara_04.png" id="chara4" style="opacity:0.5;filter:alpha(opacity=50);width:19%;">
             <img src="./img/suika_chara_05.png" id="chara5" style="opacity:0.5;filter:alpha(opacity=50);width:19%;">
+            <img src="./img/suika_chara_02.png" id="chara2" style="opacity:0.5;filter:alpha(opacity=50);width:19%;">
         </div>
 
         <form name="myFORM" id="myFORM" method="GET" action="./play">

@@ -8,6 +8,7 @@
 
 ## 仕組み
 * GR-001 http://www.hpirobot.jp/gr-001/product/index.html
+* VSidoConn4Edison https://github.com/Asratec/VSidoConn4Edison
 
 ## 苦労したところなど
 * 結局WiFiの感度が悪いとEdisonが高負荷になる。

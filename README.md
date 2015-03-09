@@ -10,7 +10,7 @@
 * GR-001 http://www.hpirobot.jp/gr-001/product/index.html
 * VSidoConn4Edison https://github.com/Asratec/VSidoConn4Edison
 
-## 苦労したところなど
+## 苦労したところ
 * 結局WiFiの感度が悪いとEdisonが高負荷になる。
 * バッテリーが10分ぐらいしか持たない。デバッグ時間が限られる。
 * コマンドが捨てられることがある。リトライ機構の実装。

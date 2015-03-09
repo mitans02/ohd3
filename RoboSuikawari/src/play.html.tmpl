@@ -87,13 +87,6 @@
             $("#chat").html(chat_text);
         });
 
-        $(window).keydown(function(e){
-          if (e.keyCode == 89) {
-              wareta(null);
-          }
-          return true;
-        });1
-
         $("#sousa").bind('click', function() {
             if (params['no'] == 1) {
               suika.doSuikawari();
@@ -134,7 +127,8 @@
         }else{
             camera=new VSidoCamera();
         }
-        //camera.listen(wareta);
+        camera.listen(wareta);
+
         if (params['no'] == 1) {
             camera.viewMarkerDetect2($('#camera_raw'));
         } else {

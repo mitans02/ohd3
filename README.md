@@ -17,6 +17,9 @@
 * バッテリーが10分ぐらいしか持たない。１時間充電して１０分デバッグ。24時間しかないHackdayではツラい。
 * コマンドが捨てられることがある。リトライ機構の実装。
 
+## 発表資料
+* http://www.slideshare.net/MotokazuNishimura/suika-warenja
+
 ## お礼
 * 夜おそくまで、相談にのってくださったアスラテックのみなさま
 * Open Hack Day Japan の事務局の方々

@@ -6,6 +6,8 @@
 * 各プレイヤーはそれぞれ１方向しか操作できません。５人で息をあわせて操作しましょう。
 * ロボットの頭につけられたWEBカメラの映像を見ながら操作します。
 
+[![Alt text for your video](http://img.youtube.com/vi/wXhkQdGJxlk/0.jpg)](http://www.youtube.com/watch?v=wXhkQdGJxlk)
+
 ## 仕組み
 * GR-001 http://www.hpirobot.jp/gr-001/product/index.html
 * VSidoConn4Edison https://github.com/Asratec/VSidoConn4Edison
